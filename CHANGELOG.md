@@ -10,4 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Publishing initial version.
-- Testet wie shopware version 6.6.2.
+- Testet with shopware version 6.6.2.
