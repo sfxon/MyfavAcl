@@ -1,0 +1,14 @@
+{% block sw_product_detail_base_basic_info_card %}
+    {% parent %}
+    <sw-card
+        :isLoading="isLoading"
+        v-if="product && product.extensions"
+        :title="$tc('myfav-product-allow-customer-group.cardTitle')"
+        class="myfav-product-allow-customer-group">
+        <sw-entity-tag-select
+            is-association
+            v-model:entity-collection="product.extensions.myfavAclAllowCustomerGroup"
+            :label="$tc('myfav-product-allow-customer-group.placeholderCustomerGroups')">
+        </sw-entity-tag-select>
+    </sw-card>
+{% endblock %}

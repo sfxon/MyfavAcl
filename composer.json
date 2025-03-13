@@ -1,0 +1,35 @@
+{
+    "name": "myfav/acl",
+    "version": "1.0.0",
+    "description": "Access Control List",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve Krämer, Mindfav Software",
+            "homepage": "https://www.mindfav.com"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.6",
+        "shopware/administration": "~6.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Myfav\\Acl\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Myfav\\Acl\\MyfavAcl",
+        "plugin-icon": "plugin.png",
+        "copyright": "(c) by Mindfav",
+        "label": {
+            "en-GB": "Access control list",
+            "de-DE": "Zugriffskontrolle"
+        },
+        "description": {
+            "en-GB": "Restrict customers access to shop categories and/or products in your shopware 6 store.",
+            "de-DE": "Beschränke den Zugriff deiner Kunden auf Kategorien und/oder Artikel in deinem Shopware 6 Shop."
+        }
+    }
+}

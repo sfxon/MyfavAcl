@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- Entity Definition -->
+        <service id="Myfav\Acl\Core\Content\MyfavCategoryAllowCustomerGroup\MyfavCategoryAllowCustomerGroupDefinition">
+            <tag name="shopware.entity.definition" entity="myfav_category_allow_customer_group" />
+        </service>
+
+        <service id="Myfav\Acl\Core\Content\MyfavProductAllowCustomerGroup\MyfavProductAllowCustomerGroupDefinition">
+            <tag name="shopware.entity.definition" entity="myfav_product_allow_customer_group" />
+        </service>
+
+        <!-- Entity Extensions -->
+        <service id="Myfav\Acl\Extension\Content\Category\CategoryExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="Myfav\Acl\Extension\Content\Product\ProductExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="Myfav\Acl\Extension\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <!-- Decorators -->
+        <service id="Myfav\Acl\Extension\CmsResolver\CustomProductSliderCmsElementResolver" decorates="Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver">
+            <argument type="service" id="Myfav\Acl\Service\AllowProductService"/>
+            <argument type="service" id="Myfav\Acl\Extension\CmsResolver\CustomProductSliderCmsElementResolver.inner"/>
+            <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <tag name="shopware.cms.element_resolver" />
+        </service>
+
+        <!-- Service -->
+        <service id="Myfav\Acl\Service\AllowProductService">
+            <argument type="service" id="myfav_product_allow_customer_group.repository"/>
+            <argument type="service" id="product.repository"/>
+        </service>
+
+        <service id="Myfav\Acl\Service\AllowCategoryService">
+            <argument type="service" id="myfav_category_allow_customer_group.repository"/>
+        </service>
+
+        <!-- Subscriber -->
+        <service id="Myfav\Acl\Storefront\Subscriber\CategorySubscriber">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="Myfav\Acl\Service\AllowCategoryService"/>
+            <argument type="service" id="myfav_category_allow_customer_group.repository"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+
+        <service id="Myfav\Acl\Storefront\Subscriber\ProductCrossSellingSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Myfav\Acl\Storefront\Subscriber\ProductListingSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Myfav\Acl\Storefront\Subscriber\ProductSearchSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Myfav\Acl\Storefront\Subscriber\ProductSubscriber">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="Myfav\Acl\Service\AllowProductService"/>
+        </service>
+
+        <service id="Myfav\Acl\Storefront\Subscriber\ProductSuggestSubscriber">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>
